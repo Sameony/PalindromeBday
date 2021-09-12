@@ -13,6 +13,7 @@ btn_check.addEventListener("click",function clickEventHandler(){
     toProperDate(date_input.value);
     var curDate =  ourDate.day+ourDate.month+ourDate.year;
     const allCurDates=allPossibleFormats(curDate);
+    
     for(var i=0;i<allCurDates.length;i++)
     {
         if(isCurDatePalindrome(allCurDates[i]))
@@ -23,10 +24,14 @@ btn_check.addEventListener("click",function clickEventHandler(){
         }
     
     }
+    
     if(!flag)
     {
-        outputHere.innerText=("No");
+        
+        closestPalindrome();
     }
+
+    
     
 });
 
@@ -104,3 +109,28 @@ function isLeapYear(year) {
     return false;    
 }
 
+function closestPalindrome()
+{
+    var flag=0, difference=0;
+    while(flag===0)
+    {
+        nextDate();
+        difference++;
+        var newDate =  ourDate.day+ourDate.month+ourDate.year;
+        var newCurDates=allPossibleFormats(newDate);
+
+        for(var i=0;i<newCurDates.length;i++)
+        {
+            if(isCurDatePalindrome(newCurDates[i]))
+            {
+                outputHere.innerText=("Yep it is palindrome");
+                flag=1;
+                break;
+            }
+    
+        }
+    
+    }
+    outputHere.innerText=("No, unfortunately your birthdate is not a palindrome :<. Closest palindrome is found after "+difference+" days at date "+ourDate.day+"-"+ourDate.month+"-"+ourDate.year);
+
+}
