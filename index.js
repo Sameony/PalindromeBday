@@ -1,6 +1,7 @@
 const date_input= document.querySelector("#date-input");
 const btn_check = document.querySelector("#btn-check");
 
+
 var ourDate={
     day:"",
     month:"",
@@ -9,7 +10,10 @@ var ourDate={
 btn_check.addEventListener("click",function clickEventHandler(){
     toProperDate(date_input.value);
     var curDate =  ourDate.day+ourDate.month+ourDate.year;
-    console.log(allPossibleFormats(curDate));
+    console.log(curDate);
+    nextDate();
+    curDate =  ourDate.day+ourDate.month+ourDate.year;
+    console.log(curDate);
     
 });
 
@@ -42,3 +46,48 @@ function allPossibleFormats(date){
 
     return [date,mmddyyyy,yyyymmdd,ddmmyy,mmddyy,yymmdd];
 }
+
+function nextDate()
+{
+    var day=parseInt(ourDate.day);
+    var month=parseInt(ourDate.month);
+    var year=parseInt(ourDate.year);
+    var months = [31,28,31,30,31,30,31,31,30,31,30,31];
+    if(isLeapYear(year))
+    { 
+        months[1]=29;
+    }
+    if(day===months[month-1])
+    {
+        if(month<=11)
+            month+=1;
+        else{
+            month=1;
+            year+=1
+        }
+        day=1;
+    }
+    else
+        day+=1;
+    if(day<10)
+        day="0"+day;
+    if(month<10)
+        month="0"+month;
+    year=year.toString();
+
+    ourDate.day=day;
+    ourDate.month=month;
+    ourDate.year=year;
+    
+}
+
+function isLeapYear(year) {
+    if(year%400===0)
+        return true;
+    if(year%100===0)
+        return false;
+    if(year%4===0)
+        return true;
+    return false;    
+}
+
