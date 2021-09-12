@@ -1,15 +1,26 @@
 const date_input= document.querySelector("#date-input");
 const btn_check = document.querySelector("#btn-check");
 const outputHere = document.querySelector(".outputHere");
+const theGif=document.querySelector(".confused_gif");
+
+theGif.style.display="none";
+
+btn_check.addEventListener("click",function gifTime(){
+    theGif.style.display="block";
+    setTimeout(function(){ clickEventHandler()}, 3000)
+});
 
 
-
-btn_check.addEventListener("click",function clickEventHandler(){
+function clickEventHandler(){
+    outputHere.innerText="none";
+    theGif.style.display="none";
+    
     var flag=0;
     var objDate=toProperDate(date_input.value);
     var curDate =  objDate.day+objDate.month+objDate.year;
     const allCurDates=allPossibleFormats(curDate);
     
+
     for(var i=0;i<allCurDates.length;i++)
     {
         if(isCurDatePalindrome(allCurDates[i]))
@@ -36,7 +47,7 @@ btn_check.addEventListener("click",function clickEventHandler(){
 
     
     
-});
+}
 
 function toProperDate(date){
     var ourDate={
