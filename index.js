@@ -3,15 +3,11 @@ const btn_check = document.querySelector("#btn-check");
 const outputHere = document.querySelector(".outputHere");
 
 
-var ourDate={
-    day:"",
-    month:"",
-    year:""
-}
+
 btn_check.addEventListener("click",function clickEventHandler(){
     var flag=0;
-    toProperDate(date_input.value);
-    var curDate =  ourDate.day+ourDate.month+ourDate.year;
+    var objDate=toProperDate(date_input.value);
+    var curDate =  objDate.day+objDate.month+objDate.year;
     const allCurDates=allPossibleFormats(curDate);
     
     for(var i=0;i<allCurDates.length;i++)
@@ -27,8 +23,15 @@ btn_check.addEventListener("click",function clickEventHandler(){
     
     if(!flag)
     {
-        
-        closestPalindrome();
+        const objDate2=toProperDate(date_input.value);
+        var a1=closestNextPalindrome(objDate);
+        var a2=closestPrevPalindrome(objDate2);
+        if(a1<a2)
+        {
+            console.log(a1);
+        }
+        else
+            console.log(a2);
     }
 
     
@@ -36,9 +39,15 @@ btn_check.addEventListener("click",function clickEventHandler(){
 });
 
 function toProperDate(date){
+    var ourDate={
+        day:"",
+        month:"",
+        year:""
+    }
     ourDate.day = date.slice(-2);
     ourDate.month = date.slice(5,7);
     ourDate.year = date.slice(0,4);
+    return ourDate;
 }
 
 function isCurDatePalindrome(date)
@@ -54,22 +63,25 @@ function isCurDatePalindrome(date)
 }
 
 function allPossibleFormats(date){
+    date.slice(0,2);
+    date.slice(2,4);
+    date.slice(-4);
+    date.slice(-2);
+    var mmddyyyy=date.slice(2,4)+date.slice(0,2)+date.slice(-4);
+    var yyyymmdd=date.slice(-4)+date.slice(2,4)+date.slice(0,2);
     
-    var mmddyyyy=ourDate.month+ourDate.day+ourDate.year;
-    var yyyymmdd=ourDate.year+ourDate.month+ourDate.day;
-    
-    var ddmmyy=ourDate.day+ourDate.month+ourDate.year.slice(-2);
-    var mmddyy=ourDate.month+ourDate.day+ourDate.year.slice(-2);
-    var yymmdd=ourDate.year.slice(-2)+ourDate.month+ourDate.day;
+    var ddmmyy=date.slice(0,2)+date.slice(2,4)+date.slice(-2);
+    var mmddyy=date.slice(2,4)+date.slice(0,2)+date.slice(-2);
+    var yymmdd=date.slice(-2)+date.slice(2,4)+date.slice(0,2);
 
     return [date,mmddyyyy,yyyymmdd,ddmmyy,mmddyy,yymmdd];
 }
 
-function nextDate()
+function nextDate(givenDate)
 {
-    var day=parseInt(ourDate.day);
-    var month=parseInt(ourDate.month);
-    var year=parseInt(ourDate.year);
+    var day=parseInt(givenDate.day);
+    var month=parseInt(givenDate.month);
+    var year=parseInt(givenDate.year);
     var months = [31,28,31,30,31,30,31,31,30,31,30,31];
     if(isLeapYear(year))
     { 
@@ -91,11 +103,48 @@ function nextDate()
         day="0"+day;
     if(month<10)
         month="0"+month;
-    year=year.toString();
+        
+    givenDate.day=day.toString();
+    givenDate.month=month.toString();
+    givenDate.year=year.toString();
+    return givenDate;
+    
+}
 
-    ourDate.day=day;
-    ourDate.month=month;
-    ourDate.year=year;
+function prevDate(givenDate)
+{
+    var day=parseInt(givenDate.day);
+    var month=parseInt(givenDate.month);
+    var year=parseInt(givenDate.year);
+    var months = [31,28,31,30,31,30,31,31,30,31,30,31];
+    if(isLeapYear(year))
+    { 
+        months[1]=29;
+    }
+    if(day===1)
+    {
+        if(month===1)
+        {
+            year=year-1;
+            month=12;
+        }
+        else{
+            month=month-1;
+        }
+        day=months[month-1];
+    }
+    else{
+        day=day-1;
+    }
+    if(day<10)
+        day="0"+day;
+    if(month<10)
+        month="0"+month;
+
+    givenDate.day=day.toString();
+    givenDate.month=month.toString();
+    givenDate.year=year.toString();
+    return givenDate;
     
 }
 
@@ -109,21 +158,20 @@ function isLeapYear(year) {
     return false;    
 }
 
-function closestPalindrome()
+function closestNextPalindrome(givenDate)
 {
     var flag=0, difference=0;
     while(flag===0)
     {
-        nextDate();
+        givenDate=nextDate(givenDate);
         difference++;
-        var newDate =  ourDate.day+ourDate.month+ourDate.year;
+        var newDate =  givenDate.day+givenDate.month+givenDate.year;
         var newCurDates=allPossibleFormats(newDate);
 
         for(var i=0;i<newCurDates.length;i++)
         {
             if(isCurDatePalindrome(newCurDates[i]))
             {
-                outputHere.innerText=("Yep it is palindrome");
                 flag=1;
                 break;
             }
@@ -131,6 +179,30 @@ function closestPalindrome()
         }
     
     }
-    outputHere.innerText=("No, unfortunately your birthdate is not a palindrome :<. Closest palindrome is found after "+difference+" days at date "+ourDate.day+"-"+ourDate.month+"-"+ourDate.year);
+    return difference;
+}
 
+function closestPrevPalindrome(givenDate)
+{
+    var flag=0;
+    var difference=0;
+    while(flag===0)
+    {
+        givenDate=prevDate(givenDate);
+        difference++;
+        var newDate =  givenDate.day+givenDate.month+givenDate.year;
+        var newCurDates=allPossibleFormats(newDate);
+
+        for(var i=0;i<newCurDates.length;i++)
+        {
+            if(isCurDatePalindrome(newCurDates[i]))
+            {
+                flag=1;
+                break;
+            }
+    
+        }
+    
+    }
+    return difference;
 }
