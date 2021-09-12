@@ -6,7 +6,8 @@ body{
     background-color: #1f1f1d;
     color: wheat;
     font-family: 'Jua', sans-serif;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
+    
 }
 
 .heading{
@@ -14,7 +15,10 @@ body{
     font-family: 'Rampart One', cursive;
 
 }
-
+.descript{
+    margin: 1rem auto;
+    max-width: 70vw;
+}
 #date-input{
     padding: 0.5rem;
     margin: 0.7rem;
@@ -61,9 +65,9 @@ body{
 
  .outputHere{
      color: wheat;
-     font-size: larger;
      padding: 1rem;
-     margin: 1rem;
+     margin: 1rem auto;
+     max-width: 70vw;
  }
 
  .confused_gif{
