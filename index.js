@@ -9,8 +9,8 @@ var ourDate={
 btn_check.addEventListener("click",function clickEventHandler(){
     toProperDate(date_input.value);
     var curDate =  ourDate.day+ourDate.month+ourDate.year;
-    console.log(curDate);
-    isCurDatePalindrome(curDate);
+    console.log(allPossibleFormats(curDate));
+    
 });
 
 function toProperDate(date){
@@ -29,4 +29,16 @@ function isCurDatePalindrome(date)
             flag=false;
     }
     return flag;
+}
+
+function allPossibleFormats(date){
+    
+    var mmddyyyy=ourDate.month+ourDate.day+ourDate.year;
+    var yyyymmdd=ourDate.year+ourDate.month+ourDate.day;
+    
+    var ddmmyy=ourDate.day+ourDate.month+ourDate.year.slice(-2);
+    var mmddyy=ourDate.month+ourDate.day+ourDate.year.slice(-2);
+    var yymmdd=ourDate.year.slice(-2)+ourDate.month+ourDate.day;
+
+    return [date,mmddyyyy,yyyymmdd,ddmmyy,mmddyy,yymmdd];
 }
