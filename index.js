@@ -28,10 +28,10 @@ btn_check.addEventListener("click",function clickEventHandler(){
         var a2=closestPrevPalindrome(objDate2);
         if(a1<a2)
         {
-            console.log(a1);
+            outputHere.innerText=("Oh no! Unfortunately, your birthday isn't a palindrome. The closest palindrome is "+a1+" days after your birthday, on: "+objDate.day+"-"+objDate.month+"-"+objDate.year);
         }
         else
-            console.log(a2);
+            outputHere.innerText=("Oh no! Unfortunately, your birthday isn't a palindrome. The closest palindrome is "+a2+" days before your birthday, on: "+objDate2.day+"-"+objDate2.month+"-"+objDate2.year);
     }
 
     
