@@ -7,12 +7,13 @@ theGif.style.display="none";
 
 btn_check.addEventListener("click",function gifTime(){
     theGif.style.display="block";
+    outputHere.innerText="";
     setTimeout(function(){ clickEventHandler()}, 3000)
 });
 
 
 function clickEventHandler(){
-    outputHere.innerText="none";
+ 
     theGif.style.display="none";
     
     var flag=0;
