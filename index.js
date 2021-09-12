@@ -26,7 +26,7 @@ function clickEventHandler(){
     {
         if(isCurDatePalindrome(allCurDates[i]))
         {
-            outputHere.innerText=("Yep it is palindrome");
+            outputHere.innerText=("Congratulations!!! you're one of the luckier people in the world! Your birthdate is a palindrome!");
             flag=1;
             break;
         }
