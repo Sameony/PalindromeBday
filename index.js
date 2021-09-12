@@ -1,5 +1,6 @@
 const date_input= document.querySelector("#date-input");
 const btn_check = document.querySelector("#btn-check");
+const outputHere = document.querySelector(".outputHere");
 
 
 var ourDate={
@@ -8,12 +9,24 @@ var ourDate={
     year:""
 }
 btn_check.addEventListener("click",function clickEventHandler(){
+    var flag=0;
     toProperDate(date_input.value);
     var curDate =  ourDate.day+ourDate.month+ourDate.year;
-    console.log(curDate);
-    nextDate();
-    curDate =  ourDate.day+ourDate.month+ourDate.year;
-    console.log(curDate);
+    const allCurDates=allPossibleFormats(curDate);
+    for(var i=0;i<allCurDates.length;i++)
+    {
+        if(isCurDatePalindrome(allCurDates[i]))
+        {
+            outputHere.innerText=("Yep it is palindrome");
+            flag=1;
+            break;
+        }
+    
+    }
+    if(!flag)
+    {
+        outputHere.innerText=("No");
+    }
     
 });
 
