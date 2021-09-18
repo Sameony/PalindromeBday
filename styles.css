@@ -74,3 +74,26 @@ body{
      margin: auto;
      max-width: 95vw;
  }
+
+  /* Footer */
+.footer{
+    padding: 2rem;
+    text-align: center;
+    color: wheat;
+    
+}
+
+.list-item-inline{
+    display: inline;
+    padding: 1rem;
+}
+
+.footer ul{
+    padding-inline-start: 0px;
+    color:wheat;
+}
+
+.footer-header{
+    font-size: x-large;
+    font-weight: bold;
+}
