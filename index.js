@@ -41,10 +41,20 @@ function clickEventHandler() {
             const objDate2 = toProperDate(date_input.value);
             var a1 = closestNextPalindrome(objDate);
             var a2 = closestPrevPalindrome(objDate2);
+            var dayNow= " days";
             if (a1 < a2) {
-                outputHere.innerText = ("Oh no! Unfortunately, your birthday isn't a palindrome. The closest palindrome is " + a1 + " days after your birthday, on: " + objDate.day + "-" + objDate.month + "-" + objDate.year);
-            } else
-                outputHere.innerText = ("Oh no! Unfortunately, your birthday isn't a palindrome. The closest palindrome is " + a2 + " days before your birthday, on: " + objDate2.day + "-" + objDate2.month + "-" + objDate2.year);
+                if(a1===1)
+                {
+                    dayNow=" day"
+                }
+                outputHere.innerText = ("Oh no! Unfortunately, your birthday isn't a palindrome. The closest palindrome is " + a1 +dayNow+" after your birthday, on: " + objDate.day + "-" + objDate.month + "-" + objDate.year);
+            } else{
+                if(a2===1)
+                {
+                    dayNow=" day"
+                }
+                outputHere.innerText = ("Oh no! Unfortunately, your birthday isn't a palindrome. The closest palindrome is " + a2 + dayNow+" before your birthday, on: " + objDate2.day + "-" + objDate2.month + "-" + objDate2.year);
+            }
         }
 
     }
